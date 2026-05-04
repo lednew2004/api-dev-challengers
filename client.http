@@ -1,0 +1,100 @@
+@baseurl = http://localhost:3333
+
+### Create user
+POST {{baseurl}}/users
+Content-Type: application/json
+
+{
+    "name": "john doe",
+    "email": "johndoe@example.com",
+    "password": "123456"
+}
+
+### authenticate user
+POST {{baseurl}}/session
+Content-Type: application/json
+
+{
+    "email": "wendellkauan870@gmail.com",
+    "password": "wendelkaua@2004"
+}
+
+### Get user profile
+GET {{baseurl}}/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU4ZDE3Ny1mODBhLTRiZjctYjRlNS1kZjM1ZTJhMmZlNzYiLCJpYXQiOjE3NzY0NjkxNjUsImV4cCI6MTc3NjQ2OTc2NX0.F_Qxz3TKsO9cxjpeEXqpbRn7km-0Fqntu5uns4zvZeM
+
+### Get user profile
+GET {{baseurl}}/user/4ee8d177-f80a-4bf7-b4e5-df35e2a2fe76
+Content-Type: application/json
+
+### create image profile
+PATCH  {{baseurl}}/user/image/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTlmNTgyYi04ZDUxLTRkOTgtOWRjMi0zMTk4YzQ3MDQ4MTMiLCJpYXQiOjE3NzY1Njc2NTgsImV4cCI6MTc3NjU2ODI1OH0.t3sDNPoT_LHuRJGjUKLupEywakpLJaIS_VfQbyPxKH8
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="profile.jpeg"
+Content-Type: image/jpeg
+
+< ./public/profile.jpeg
+--boundary--
+
+
+### create links 
+PUT  {{baseurl}}/links
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU4ZDE3Ny1mODBhLTRiZjctYjRlNS1kZjM1ZTJhMmZlNzYiLCJpYXQiOjE3NzYyOTM5MjUsImV4cCI6MTc3NjI5NDUyNX0.OywDuM9a54ZbCZQ6YyaZvE37EbLcjBIMe6ky8R4lyrs
+
+{
+    "title": "Github",
+    "url": "https://github.com/lednew2004"
+}
+
+### Create challenger
+POST {{baseurl}}/challenger/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU4ZDE3Ny1mODBhLTRiZjctYjRlNS1kZjM1ZTJhMmZlNzYiLCJpYXQiOjE3NzY0NjgyNTQsImV4cCI6MTc3NjQ2ODg1NH0.534J5lBmVXp72ZnO0O_JDYZGC__wQIP97tBTrdx2T8c
+
+  {
+    "title": "Sistema de comentários em desafios",
+    "description": "Permitir que usuários comentem em desafios e respondam comentários.",
+    "author": "keven doe",
+    "level": "hard",
+    "requirements": [
+      "Criar comentários",
+      "Responder comentários",
+      "Relacionar com usuário",
+      "Ordenar por data"
+    ],
+    "technologies": ["Node.js", "React", "Prisma"]
+  }
+
+### search challenger title
+GET {{baseurl}}/search/challenger/title?title=python&page=1
+Content-Type: application/json
+
+### Get challengers
+GET {{baseurl}}/challengers?page=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNWNmYTMzYy05NmJiLTQ5ODgtOWE0Mi04YzIyZDgyN2RmN2UiLCJpYXQiOjE3NzY1MTg1MzIsImV4cCI6MTc3NjUxOTEzMn0.UwUMXOg3WfhUAeHPZBjbcHCC7jebzqNQwxRa8Zkhu0k
+
+### Get challenger id
+GET {{baseurl}}/challenger/0d6f4dc1-b71e-4766-a009-9998aa3c2d3e
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTlmNTgyYi04ZDUxLTRkOTgtOWRjMi0zMTk4YzQ3MDQ4MTMiLCJpYXQiOjE3NzY1NzM0MTEsImV4cCI6MTc3NjU3NDAxMX0.x9cGOeAQ7hgrROHtrFn9KZUDdHOVQxtt56U_s0SwFKE
+
+### Create solutions
+POST {{baseurl}}/solution/0e361752-0038-4b54-8bb1-e2aadc027d8d
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNWNmYTMzYy05NmJiLTQ5ODgtOWE0Mi04YzIyZDgyN2RmN2UiLCJpYXQiOjE3NzY0NDU2ODAsImV4cCI6MTc3NjQ0NjI4MH0.WoN1X3WFrRCVVxe6X6UjNDrEcsbRalEGHYa3ZmeBtdc
+
+{
+    "author": "john doe"    ,
+    "codeUrl": "http://github/api/python"
+}
+
+### validate solutions
+PATCH  {{baseurl}}/solutions/09daa108-e357-4a28-a35f-fea8f6bf88cc/validate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNWNmYTMzYy05NmJiLTQ5ODgtOWE0Mi04YzIyZDgyN2RmN2UiLCJpYXQiOjE3NzY1MTk3MDgsImV4cCI6MTc3NjUyMDMwOH0.YX1wh-Q24ah93Ov2PiSTHRIn_bP8CMKpKiRzbkAE26M
+

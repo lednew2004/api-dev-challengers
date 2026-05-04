@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Level {
+  easy
+  medium
+  hard
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String?
+  biography     String?
+  urlImage      String?
+  created_at    DateTime @default(now())
+
+  challengers Challenger[]
+  solutions   Solution[]
+  socialLinks SocialLinks[]
+}
+
+model SocialLinks {
+  id    String @id @default(uuid())
+  title String
+  url   String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  created_at DateTime @default(now())
+}
+
+model Challenger {
+  id          String @id @default(uuid())
+  author      String
+  title       String
+  description String
+  level       Level
+
+  user     User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  requirements    Requirements[]
+  techsSuggesteds TechsSuggested[]
+  solutions       Solution[]
+
+  created_at DateTime @default(now())
+}
+
+model Solution {
+  id      String  @id @default(uuid())
+  author  String
+  codeUrl String
+
+  user     User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  challenger   Challenger @relation(fields: [challengerId], references: [id])
+  challengerId String
+
+  validated_at DateTime?
+  created_at   DateTime  @default(now())
+}
+
+model Requirements {
+  id    String @id @default(uuid())
+  title String
+
+  challenger   Challenger @relation(fields: [challengerId], references: [id])
+  challengerId String
+
+  created_at DateTime @default(now())
+}
+
+model TechsSuggested {
+  id    String @id @default(uuid())
+  title String
+
+  challenger   Challenger @relation(fields: [challengerId], references: [id])
+  challengerId String
+
+  created_at DateTime @default(now())
+}
